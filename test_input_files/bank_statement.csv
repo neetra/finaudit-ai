@@ -1,0 +1,4 @@
+Date,Description,Amount,Category
+2026-06-01,Deposit,1500.00,Income
+2026-06-05,ATM Withdrawal,-200.00,Expense
+2026-06-10,Salary,3000.00,Income
