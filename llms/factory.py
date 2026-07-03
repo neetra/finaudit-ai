@@ -1,3 +1,4 @@
+from llms.azureopenai_llm import AzureOpenAILLM
 from llms.ollama_llm import OllamaLLM
 from llms.openai_llm import OpenAILLM
 
@@ -5,6 +6,7 @@ from llms.openai_llm import OpenAILLM
 PROVIDER_CLASSES = {
     "ollama": OllamaLLM,
     "openai": OpenAILLM,
+    "azureopenai": AzureOpenAILLM
 }
 
 

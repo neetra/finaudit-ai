@@ -19,6 +19,7 @@ class Agent:
             model_provider = "ollama"
         print(F"Using model provider: {model_provider}")    
         self.llm = LLMFactory.create(model_provider)
+        print(f"Using llm: {type(self.llm).__name__}")
         self.chat = ChatSession()
 
     def run(self, user_input: str):
