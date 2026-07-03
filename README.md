@@ -1,214 +1,60 @@
-# Phase 1 - Local LLM Integration
+# FinAudit AI - Personal Finance Analyzer
+Upload statements. Track expenses. Get AI-powered financial insights.
 
-## 📌 Project Overview
+# Description
+- The AI Financial Audit Agent is an intelligent financial analysis platform that helps users understand their spending habits, savings, and overall financial health by analyzing bank statements, credit card statements, and other financial documents.
+- Instead of simply answering questions, the agent acts like a virtual financial analyst. It extracts financial information, categorizes transactions, identifies trends, detects unusual spending patterns, and generates personalized financial insights and recommendations.
+- The project is being developed incrementally to demonstrate how a production-grade AI agent evolves from a simple LLM integration into a scalable, cloud-native, multi-agent platform.
 
-This phase demonstrates how to integrate a locally running Large Language Model (LLM) into a Python application using Ollama. The objective is to understand how applications communicate with an LLM without relying on cloud providers.
+# Project Setup
 
-This project is the first milestone in a larger AI Agent Engineering roadmap that gradually evolves from a simple chat application into a production-grade multi-agent platform.
+## 1. Create a virtual environment
+- On Windows:
+  - `python -m venv .venv`
+  - `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`
+  - `.\.venv\Scripts\Activate.ps1`
+- On macOS/Linux:
+  - `python3 -m venv .venv`
+  - `source .venv/bin/activate`
 
----
+## 2. Install requirements
+- `pip install -r requirements.txt`
 
-# Architecture
+## 2.5. Entry file
+- The main application entry point is `main.py`.
+- Start the app with:
+  - `python main.py`
 
-```text
-                User
-                  │
-                  ▼
-           Python Application
-                  │
-                  ▼
-            LocalLLM Class
-                  │
-                  ▼
-         Ollama HTTP Server
-                  │
-                  ▼
-            Llama 3.2 Model
-```
+## 3. Configure environment variables
+- Copy or create the `.env` file in the project root.
+- Use `MODEL_PROVIDER` to select which model provider the agent uses.
+- Supported values in this project may include:
+  - `ollama`
+  - `openai`
+  
 
----
+## 4. Model options
+The project supports either locally deployed models or cloud models.
 
-# Learning Objectives
+### Local model setup (Ollama)
+- Install Ollama locally from https://ollama.com/docs/install.
+- Start the Ollama daemon and deploy a model:
+  - `ollama install gemma4`
+  - `ollama serve gemma4`
+- Confirm the model is running.
+- Set `.env` values:
+  - `MODEL_PROVIDER=ollama`
+  - `OLLAMA_MODEL=gemma4`
+- In the code, choose the `ollama` provider when initializing the agent.
 
-After completing this phase, I should understand:
-
-- How local LLMs work
-- How Ollama exposes an HTTP API
-- How Python communicates with an LLM
-- Message-based conversations
-- Prompt engineering basics
-- Why LLMs are stateless
-- Why abstraction layers are important
-
----
-
-# Features
-
-- Run Llama locally
-- Interactive chat application
-- Conversation history
-- Object-oriented design
-- Provider abstraction
-- Easy provider replacement
-
----
-
-# Project Structure
-
-```text
-AI_Financial_Agent/
-
-├── llms/
-│   ├── base.py
-│   ├── ollama_llm.py
-│   └── factory.py
-│
-├── agent/
-│   ├── chat.py
-│   └── agent.py
-│
-├── main.py
-└── README.md
-```
-
----
-
-# Design Decisions
-
-## Why use an abstraction layer?
-
-Instead of directly calling Ollama everywhere in the project, a `BaseLLM` interface was introduced.
-
-Benefits:
-
-- Loose coupling
-- Easier testing
-- Open for extension
-- Supports multiple providers
-
-```text
-Agent
-   │
-BaseLLM
-   ▲
-   │
-OllamaLLM
-OpenAILLM
-AzureOpenAILLM
-```
-
----
-
-## Why use Object-Oriented Programming?
-
-Responsibilities are separated into classes.
-
-| Class | Responsibility |
-|--------|----------------|
-| Agent | Coordinates execution |
-| ChatSession | Maintains conversation history |
-| BaseLLM | Common interface |
-| OllamaLLM | Communicates with Ollama |
-
-This follows the Single Responsibility Principle.
-
----
-
-# Tradeoffs
-
-## Advantages
-
-- Simple architecture
-- Easy to understand
-- Runs completely offline
-- No API cost
-- Easy to extend
-
-## Limitations
-
-- No tool calling
-- No memory beyond conversation history
-- No planning
-- No RAG
-- No streaming responses
-- No retry logic
-
----
-
-# Challenges Faced
-
-- Understanding message history
-- Managing conversation state
-- Designing a provider abstraction
-- Organizing project structure
-
----
-
-# What I Learned
-
-- LLMs are stateless
-- Python applications maintain memory
-- Ollama behaves like an HTTP service
-- Good architecture separates responsibilities
-- Interfaces simplify future enhancements
-
----
-
-# Future Improvements
-
-Next phase will introduce:
-
-- Tool calling
-- Function registry
-- ReAct reasoning
-- Agent loop
-- JSON responses
-- Retry handling
-
----
-
-# Interview Talking Points
-
-This phase demonstrates:
-
-- Python
-- OOP
-- SOLID Principles
-- Factory Pattern
-- Dependency Injection
-- REST API integration
-- Local AI models
-- Clean Architecture
-
-Possible interview questions:
-
-- Why create a BaseLLM interface?
-- How would you switch to OpenAI?
-- Why is the LLM stateless?
-- How would you add streaming?
-- How would you support multiple providers?
-
----
-
-# Future Roadmap
-
-- ✅ Phase 1 – Local LLM
-- ⏳ Phase 2 – Chat Memory
-- ⏳ Phase 3 – Tool Calling
-- ⏳ Phase 4 – ReAct Agent
-- ⏳ Phase 5 – RAG
-- ⏳ Phase 6 – Multi-Agent
-- ⏳ Phase 7 – FastAPI
-- ⏳ Phase 8 – Docker
-- ⏳ Phase 9 – Kubernetes
-- ⏳ Phase 10 – Production Deployment
-
----
+### Cloud model setup (OpenAI)
+- Sign up for OpenAI and create an API key.
+- Set `.env` values:
+  - `OPENAI_API_KEY=sk-...`
+  - `OPENAI_MODEL=gpt-5`
+  - `MODEL_PROVIDER=openai`
+- Ensure the `openai` provider is selected in the agent configuration.
 
 # References
-
 - Ollama Documentation
-- Python Documentation
-- Microsoft Agent Framework
-- LangChain
-- ReAct Paper
+- OpenAI API Documentation

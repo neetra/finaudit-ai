@@ -1,7 +1,11 @@
-# chat.py
+
 
 class ChatSession:
 
+    """
+        Stores conversation history in OpenAI/Ollama format.
+        This is the memory layer of the agent.
+    """
     def __init__(self):
         self.messages = []
 
@@ -29,3 +33,6 @@ class ChatSession:
     def history(self):
 
         return self.messages
+    
+    def clear(self):
+        self.messages = []

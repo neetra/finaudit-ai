@@ -2,15 +2,26 @@ from llms.ollama_llm import OllamaLLM
 from llms.openai_llm import OpenAILLM
 
 
+PROVIDER_CLASSES = {
+    "ollama": OllamaLLM,
+    "openai": OpenAILLM,
+}
+
+
 class LLMFactory:
 
     @staticmethod
     def create(provider: str):
+        if not provider:
+            raise ValueError("MODEL_PROVIDER is required. Set MODEL_PROVIDER in .env.")
 
-        if provider.lower() == "ollama":
-            return OllamaLLM()
+        key = provider.strip().lower()
+        provider_cls = PROVIDER_CLASSES.get(key)
 
-        if provider.lower() == "openai":
-            return OpenAILLM()
+        if provider_cls is None:
+            supported = ", ".join(sorted(PROVIDER_CLASSES))
+            raise ValueError(
+                f"Unknown provider: {provider}. Supported providers: {supported}"
+            )
 
-        raise ValueError(f"Unknown provider: {provider}")
+        return provider_cls()
