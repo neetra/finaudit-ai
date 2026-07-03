@@ -58,3 +58,6 @@ The project supports either locally deployed models or cloud models.
 # References
 - Ollama Documentation
 - OpenAI API Documentation
+- https://linkedin.com/learning/building-ai-agents-for-beginners-by-microsoft
+- https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-apps-and-agents-developer-associate/?practice-assessment-type=certification
+- https://microsoft.github.io/ai-agents-for-beginners/
