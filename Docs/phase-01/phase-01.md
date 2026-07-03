@@ -9,7 +9,7 @@ This phase  is the first milestone in a larger AI Agent Engineering roadmap that
 
 ## Architecture
 
-![Architecture](architecture/phase-01-localllm-cloudllm.png)
+![Architecture](architecture/phase-01.png)
 
 
 ## Learning Objectives
@@ -140,3 +140,6 @@ Next phase will introduce:
 # References
 
 - Ollama Documentation
+- linkedin.com/learning/building-ai-agents-for-beginners-by-microsoft
+- https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-apps-and-agents-developer-associate/?practice-assessment-type=certification
+- https://microsoft.github.io/ai-agents-for-beginners/
