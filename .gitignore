@@ -10,3 +10,4 @@ __pycache__/
 
 # Database
 *.db
+notes.txt
