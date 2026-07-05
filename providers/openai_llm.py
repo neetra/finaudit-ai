@@ -10,7 +10,10 @@ class OpenAILLM:
         self.client = OpenAI(
             api_key=os.getenv("OPENAI_API_KEY")
         )
-        self.model = os.getenv("OPENAI_MODEL")
+        self.model = (os.getenv("OPENAI_MODEL") or os.getenv("OPENAI_MODEL_NAME") or model or "gpt-4o-mini").strip()
+
+        if not self.model:
+            self.model = "gpt-4o-mini"
 
     def generate(self, messages):
 

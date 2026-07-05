@@ -1,18 +1,21 @@
 # main.py
 
-from agent.agent import Agent
 from dotenv import load_dotenv
 import os
+
+from agent import AgentFactory
 
 print("\n🤖 AI Financial Audit Agent (Phase 1)")
 print("Type 'exit' to quit\n")
 
-
 load_dotenv()
-model_provider = os.getenv("MODEL_PROVIDER").strip().lower()
-agent = Agent(model_provider=model_provider)
+model_provider = os.getenv("MODEL_PROVIDER", "ollama").strip().lower()
 
-SYSTEM_PROMPT = """
+agentFactory = AgentFactory(model_provider=model_provider)
+
+financial_audit_agent = agentFactory.create_agent(
+    "financial_audit_agent",
+    instructions="""
 You are Monica, a highly precise and helpful personal financial audit AI assistant. Your goal is to analyze financial behaviors, calculate health metrics, and identify transaction anomalies.
 
 ### Your Core Auditing Capabilities:
@@ -30,16 +33,23 @@ You are Monica, a highly precise and helpful personal financial audit AI assista
 
 Answer only in the context of financial auditing and accounting.
 """
+)
 
-agent.chat.add_system_message(SYSTEM_PROMPT)
+active_agent = financial_audit_agent
 
 while True:
-
     user = input("\nYou: ")
 
     if user.lower() == "exit":
         break
 
-    answer = agent.run(user)
+    if user.lower().startswith("file:"):
+        file_path = user.split(":", 1)[1].strip()
+        if isinstance(active_agent, type(financial_audit_agent)):
+            answer = active_agent.process_document(file_path)
+        else:
+            answer = active_agent.run(user)
+    else:
+        answer = active_agent.run(user)
 
     print("\nAssistant:", answer)
