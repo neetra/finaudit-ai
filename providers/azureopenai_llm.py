@@ -3,7 +3,7 @@ from urllib import response
 from xmlrpc import client
 from dotenv import load_dotenv
 from openai import OpenAI
-from llms.base import BaseLLM
+from providers.base import BaseLLM
 
 
 
@@ -15,7 +15,10 @@ class AzureOpenAILLM(BaseLLM):
             base_url=os.getenv("AZURE_OPENAI_ENDPOINT"),
             api_key=os.getenv("AZURE_OPENAI_APIKEY")
         )
-        self.model = os.getenv("AZURE_OPENAI_MODEL")
+        self.model = (os.getenv("AZURE_OPENAI_MODEL") or os.getenv("AZURE_OPENAI_DEPLOYMENT") or "gpt-4o-mini").strip()
+
+        if not self.model:
+            self.model = "gpt-4o-mini"
 
     def generate(self, messages):        
 

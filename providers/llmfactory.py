@@ -1,6 +1,6 @@
-from llms.azureopenai_llm import AzureOpenAILLM
-from llms.ollama_llm import OllamaLLM
-from llms.openai_llm import OpenAILLM
+from providers.azureopenai_llm import AzureOpenAILLM
+from providers.ollama_llm import OllamaLLM
+from providers.openai_llm import OpenAILLM
 
 
 PROVIDER_CLASSES = {
