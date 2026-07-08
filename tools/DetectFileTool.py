@@ -1,19 +1,18 @@
+# tools/detect_file_tool.py
+
 from pathlib import Path
-from tools.BaseTool import BaseTool
+
+from agent_framework import tool
 
 
-class DetectFileTool(BaseTool):
 
-    def __init__(self):
-        super().__init__("File Type Detector Tool")
+@tool
+def detect_file(file_path: str):
 
-    async def execute(self, file_path):
+    suffix = Path(file_path).suffix.lower()
 
-        extension = Path(file_path).suffix.lower()
-
-        return {
-            "extension": extension,
-            "is_csv": extension == ".csv",
-            "is_pdf": extension == ".pdf",
-            "is_image": extension in [".png", ".jpg", ".jpeg"]
-        }
+    return {
+        "extension": suffix,
+        "is_pdf": suffix == ".pdf",
+        "is_csv": suffix == ".csv"
+    }
