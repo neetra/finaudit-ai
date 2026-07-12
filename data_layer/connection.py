@@ -8,6 +8,8 @@ from data_layer.exceptions import DatabaseDependencyError
 try:
     import psycopg2
     from psycopg2 import pool
+    from psycopg2.extras import register_uuid
+    register_uuid()
 except ImportError:
     psycopg2 = None
     pool = None
@@ -78,18 +80,11 @@ def run_migrations(migrations_path: Path | None = None) -> None:
     path = Path(__file__).parent / "scripts" / "migrations"
     sql_files = sorted(path.glob("*.sql"))
 
-    print(f"Running migrations from {path}")
-    print(f"Executing migration files from {path}")
+  
     with transaction() as connection:
         with connection.cursor() as cursor:
             for sql_file in sql_files:
-                print(f"Executing migration file: {sql_file}")
+            
                 cursor.execute(sql_file.read_text(encoding="utf-8"))
 
 
-def initialize_database() -> None:
-    """Run migrations and create stored procedures/functions used by the data layer."""
-    from data_layer.scripts.run_functions import create_database_functions
-
-    run_migrations()
-    create_database_functions()

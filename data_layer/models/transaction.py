@@ -2,12 +2,13 @@ from dataclasses import dataclass
 from datetime import date, datetime
 from decimal import Decimal
 from typing import Optional
+from uuid import UUID
 
 
 @dataclass
 class Transaction:
-    id: Optional[int]
-    user_id: int
+    id: UUID
+    user_id: UUID
     date: date
     type: str
     amount: Decimal

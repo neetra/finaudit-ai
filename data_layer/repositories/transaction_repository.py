@@ -25,7 +25,8 @@ class TransactionRepository(BaseRepository):
         )
         return Transaction(*row) if row else None
 
-    def list_for_user(self, user_id: int, limit: int = 100) -> list[Transaction]:
+    def list_for_user(self, user_id: str, limit: int = 100) -> list[Transaction]:
+
         rows = self.execute_many(
             """
             SELECT id, user_id, date, type, amount, currency, description, category, created_at
@@ -36,6 +37,9 @@ class TransactionRepository(BaseRepository):
             """,
             (user_id, limit),
         )
+
+
+        
         return [Transaction(*row) for row in rows]
 
     def delete(self, transaction_id: int) -> None:

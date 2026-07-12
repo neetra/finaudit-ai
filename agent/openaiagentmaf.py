@@ -16,8 +16,7 @@ class openaiagentmaf:
         endpoint = os.getenv("FOUNDRY_ENDPOINT")
         deployment_name = os.getenv("AZURE_OPENAI_MODEL")
       
-        print(f"Endpoint: {endpoint}")
-        print(f"Deployment Name: {deployment_name}")
+     
         self.client = FoundryChatClient(
         project_endpoint=endpoint,
         model=deployment_name,

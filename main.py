@@ -5,16 +5,16 @@ import asyncio
 from dotenv import load_dotenv
 import os
 
-from agent import AgentFactory
+from agent.AgentFactory import AgentFactory
 from agent import openaiagentmaf
 
 print("\n🤖 AI Financial Audit Agent (Phase 1)")
 print("Type 'exit' to quit\n")
 async def chat_loop():
     # Initialize your agent wrapper class
-    agent_wrapper = openaiagentmaf()
-    agent = agent_wrapper.get_agent()
-    
+    agentFactory = AgentFactory()
+    agent = agentFactory.create_agent()
+   
     print("Financial Auditor Agent Ready. Enter file path or type 'exit':")
     
     while True:
