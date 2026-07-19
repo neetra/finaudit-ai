@@ -1,7 +1,7 @@
 from getpass import getpass
 from hashlib import sha256
 
-from data_layer.repositories.user_repository import UserRepository
+from data_layer.repositories.UserRepository import UserRepository
 
 
 def hash_password(password: str) -> str:

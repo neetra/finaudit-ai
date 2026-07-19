@@ -3,21 +3,31 @@ from data_layer.repositories.base import BaseRepository
 
 
 class TransactionRepository(BaseRepository):
-    def create(self, tx: Transaction) -> int:
+    def create(self, tx: Transaction):
         row = self.execute_one(
             """
-            INSERT INTO transactions (user_id, date, type, amount, currency, description, category)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO transactions (id, user_id, date, type, amount, currency, description, merchant, category)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
             RETURNING id
             """,
-            (tx.user_id, tx.date, tx.type, tx.amount, tx.currency, tx.description, tx.category),
+            (
+                tx.id,
+                tx.user_id,
+                tx.date,
+                tx.type,
+                tx.amount,
+                tx.currency,
+                tx.description,
+                tx.merchant,
+                tx.category,
+            ),
         )
         return row[0]
 
     def get_by_id(self, transaction_id: int) -> Transaction | None:
         row = self.execute_one(
             """
-            SELECT id, user_id, date, type, amount, currency, description, category, created_at
+            SELECT id, user_id, date, type, amount, currency, description, merchant, category, created_at
             FROM transactions
             WHERE id = %s
             """,
@@ -29,7 +39,7 @@ class TransactionRepository(BaseRepository):
 
         rows = self.execute_many(
             """
-            SELECT id, user_id, date, type, amount, currency, description, category, created_at
+            SELECT id, user_id, date, type, amount, currency, description, merchant, category, created_at
             FROM transactions
             WHERE user_id = %s
             ORDER BY date DESC

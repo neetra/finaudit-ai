@@ -19,3 +19,4 @@ Docs/phase-02/Architectural Decisions_ Cloud Infrastructure & Database Selection
 .localdbenv
 /database
 /SQLScripts
+adddb.py
